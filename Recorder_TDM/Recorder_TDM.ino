@@ -185,9 +185,9 @@ void startRecording(String sname, String path, String type) {
 
 void continueRecording() {
   if (queue1.available() >= 2 && queue2.available() >=2) {
-    byte buffer[512];
-    byte buffer1[256];
-    byte buffer2[256];
+    uint32_t buffer[128];
+    uint16_t buffer1[128];
+    uint16_t buffer2[128];
     // Fetch 2 blocks from the audio library and copy
     // into a 512 byte buffer.  The Arduino SD library
     // is most efficient when full 512 byte sector size
@@ -196,15 +196,12 @@ void continueRecording() {
     memcpy(buffer2, queue2.readBuffer(), 256);
     queue1.freeBuffer();
     queue2.freeBuffer();
-    int b = 0;
-    for(int i = 0; i < 512; i += 2){
-        buffer[i] = buffer1[b];
-        buffer[i + 1] = buffer2[b];
-        b++;
+    for(int i = 0; i < 128; i ++){
+        buffer[i] = (buffer1[i] << 16) | buffer2[i];
     }
     // write all 512 bytes to the SD card
     //elapsedMicros usec = 0;
-    frec.write(buffer, 512);
+    frec.write(buffer, 128);
     // Uncomment these lines to see how long SD writes
     // are taking.  A pair of audio blocks arrives every
     // 5802 microseconds, so hopefully most of the writes
