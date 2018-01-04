@@ -192,10 +192,10 @@ void continueRecording() {
     queue1.freeBuffer();
     queue2.freeBuffer();
     for(int i = 0; i < 128; i ++){
-        frec.write(buffer1[i]>>8);
-        frec.write(buffer1[i]);
-        frec.write(buffer2[i]>>8);
-        frec.write(buffer2[i]);
+        frec.write(buffer2[i]>>8); // LSB
+        frec.write(buffer1[i]); // Middle Byte
+        frec.write(buffer1[i]>>8); // MSB       
+        //frec.write(buffer2[i]); // Zeros
     }
   }
 }
