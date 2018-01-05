@@ -1,0 +1,2 @@
+- Fix hardware to get a full [-1, 1) audio signal (open topic at invensense)
+- Add channels 2 to 8 w/ interleaving
