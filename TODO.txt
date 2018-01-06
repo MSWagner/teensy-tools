@@ -1,2 +1,6 @@
-- Fix hardware to get a full [-1, 1) audio signal (open topic at invensense)
+- Fix ICS-52000 hardware to get a full [-1, 1) audio signal (opened topic at invensense)
 - Add channels 2 to 8 w/ interleaving
+- Add 1-2 TDM channels streaming via USB
+- Develop simple beamforming algorithms with 1-8 channels to 1-2 channels USB streaming
+
+- Create AUDIO_INPUT_MIC to USB streaming example
