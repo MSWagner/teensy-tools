@@ -3,4 +3,10 @@
 - Add 1-2 TDM channels streaming via USB
 - Develop simple beamforming algorithms with 1-8 channels to 1-2 channels USB streaming
 
+- Modify Teensy Audio Library to support 11KHz Sampling Rate or lower
+	https://forum.pjrc.com/threads/27311-Change-sample-rate-for-Audio-Adaptor-Board-for-Teensy-3-0-amp-3-1-FFT
+	https://forum.pjrc.com/threads/38753-Discussion-about-a-simple-way-to-change-the-sample-rate/page3
+	https://forum.pjrc.com/threads/42092-Audio-Sample-Rate-how-to-change-from-44100-Hz-(44117-65-Hz)-to-48000
+
+DONE:
 - Create AUDIO_INPUT_MIC to USB streaming example
