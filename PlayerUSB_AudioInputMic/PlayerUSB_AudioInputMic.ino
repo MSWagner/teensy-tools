@@ -8,6 +8,7 @@
 AudioInputI2S            i2s1;           //xy=360,206
 AudioOutputUSB           usb1;           //xy=531,206
 AudioConnection          patchCord1(i2s1, 0, usb1, 0);
+AudioConnection          patchCord2(i2s1, 1, usb1, 1);
 AudioControlSGTL5000     sgtl5000_1;     //xy=369,250
 // GUItool: end automatically generated code
 
