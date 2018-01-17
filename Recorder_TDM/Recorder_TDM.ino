@@ -1,6 +1,6 @@
-// Record TDM input sound as raw data (16ch, Signed 16-bit PCM, 44.1kHz, little-endian) to a SD card.
-// Note: Need to modify format, mics align their 24 bit data to 32 bit slots, so half of the 16 bit
-// channels will end up being the 8 low bits, and 8 more zeros.
+// Record TDM input sound as raw data (16ch, Signed 24-bit little-endian PCM, 44.1kHz, little-endian) to a SD card.
+// Note: Format is modified so that mics align their 24 bit data to 32 bit slots, half of the 16 bit
+// channels end up being the 8 low bits, and 8 more zeros which are discarded.
 //
 // Hardware:
 //   Pin  9 SCLK  (Output, 11.3 MHz, Checked)
