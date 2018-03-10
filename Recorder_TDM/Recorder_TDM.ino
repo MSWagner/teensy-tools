@@ -96,9 +96,6 @@ void setup() {
   // uses this memory to buffer incoming audio.
   AudioMemory(512);
 
-  // Enable the audio shield, select input, and enable output
-  sgtl5000_1.enable();
-
   // Initialize the SD card
   SPI.setMOSI(SDCARD_MOSI_PIN);
   SPI.setSCK(SDCARD_SCK_PIN);
@@ -201,10 +198,10 @@ void continueRecording() {
     queue1.freeBuffer();
     queue2.freeBuffer();
     for(int i = 0; i < 128; i ++){
-        frec.write(buffer2[i]>>8, 1); // LSB
-        frec.write(buffer1[i], 1); // Middle Byte
-        frec.write(buffer1[i]>>8, 1); // MSB       
-        //frec.write(buffer2[i], 1); // Zeros
+        frec.write(highByte(buffer2[i])); // LSB
+        frec.write(lowByte(buffer1[i])); // Middle Byte
+        frec.write(highByte(buffer1[i])); // MSB       
+        //frec.write(lowByte(buffer2[i])); // Zeros
     }
   }
 }
