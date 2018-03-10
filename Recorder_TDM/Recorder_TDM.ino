@@ -3,9 +3,18 @@
 // channels end up being the 8 low bits, and 8 more zeros which are discarded.
 //
 // Hardware:
-//   Pin  9 SCLK  (Output, 11.3 MHz, Checked)
-//   Pin 13 SDATA (Input, 11.3 Mbit/sec)
-//   Pin 23 FS    (Output, 44100 Hz, Checked)
+//   Mic Pin 6  (SD_O)  to Teensy Pin  9 SCLK  (Output, 11.3 MHz, Checked)
+//   Mic Pin 8  (SCK_I) to Teensy Pin 13 SDATA (Input, 11.3 Mbit/sec)
+//   Mic Pin 10 (WS_I)  to Teensy Pin 23 FS    (Output, 44100 Hz, Checked)
+//
+//   Mic GND Pins (1, 3, 5, 7 and 9) to Teensy GND
+//   Mic VDD to Teensy 3.3V
+
+//   At startup of the ICS-52000, the start of the frame sync (WS_I) signal should be delayed from the start of the serial clock (SCK_I) by at
+//   least 10 ms. This enables the microphone’s internal circuits to completely initialize before starting the synchronization sequence
+//   with other microphones in the TDM array. This delay can be implemented either by enabling the WS output (FS) on the clock master at
+//   least 10 ms after the SCK_I is enabled, or by externally controlling the signals given to the ICS-52000s.
+//   
 //
 // This example code is in the public domain.
 
@@ -85,7 +94,7 @@ void setup() {
 
   // Audio connections require memory, and the record queue
   // uses this memory to buffer incoming audio.
-  AudioMemory(60);
+  AudioMemory(512);
 
   // Enable the audio shield, select input, and enable output
   sgtl5000_1.enable();
@@ -192,10 +201,10 @@ void continueRecording() {
     queue1.freeBuffer();
     queue2.freeBuffer();
     for(int i = 0; i < 128; i ++){
-        frec.write(buffer2[i]>>8); // LSB
-        frec.write(buffer1[i]); // Middle Byte
-        frec.write(buffer1[i]>>8); // MSB       
-        //frec.write(buffer2[i]); // Zeros
+        frec.write(buffer2[i]>>8, 1); // LSB
+        frec.write(buffer1[i], 1); // Middle Byte
+        frec.write(buffer1[i]>>8, 1); // MSB       
+        //frec.write(buffer2[i], 1); // Zeros
     }
   }
 }
